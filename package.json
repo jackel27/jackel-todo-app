@@ -1,6 +1,6 @@
 {
   "name": "jackel-todo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple electron todo manager. Made with <3, built with VUE 2.0",
   "main": "./dist/electron/main.js",
   "scripts": {
