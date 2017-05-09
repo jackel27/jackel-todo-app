@@ -12,8 +12,11 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800
+    height: 800,
+    frame: false,
+    alwaysOnTop: true,
+    transparent: true,
+    width: 900
   })
 
   mainWindow.loadURL(winURL)
@@ -26,7 +29,9 @@ function createWindow () {
   console.log('mainWindow opened')
 }
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

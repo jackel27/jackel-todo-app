@@ -44,6 +44,9 @@ img {
   display: flex;
   margin: 0 auto;
 }
+.title {
+  color: white;
+}
 </style>
 
 <template>
@@ -58,7 +61,7 @@ img {
         <h1 class="title">{{ heading }}</h1>
         <div class="field has-addons" id="input-container">
           <p class="control">
-            <input type="text" id="user-input" v-model="userinput" @keyup.enter="addTodo" placeholder="Todo here...">
+            <input type="text" id="user-input" v-model="userinput" ref="todoinput" @keyup.enter="addTodo" placeholder="Todo here...">
           </p>
           <p class="control">
             <a class="button is-info" @click="addTodo">
@@ -124,7 +127,11 @@ img {
       }
     },
     mounted () {
+      this.$refs.todoinput.focus()
       this.todoList = JSON.parse(window.localStorage.getItem('todos')) || []
+      this.$electron.remote.getCurrentWindow().on('show', () => {
+        this.$refs.todoinput.focus()
+      })
     },
     computed: {
       sortedTodos () {
@@ -137,7 +144,7 @@ img {
     },
     data () {
       return {
-        heading: 'Start of the "TODO" App! (in Electron)',
+        heading: 'Use CommandOrControl+Shift+Alt+A to toggle window',
         userinput: '',
         todoList: [],
         listdir: false
@@ -153,6 +160,20 @@ img {
       },
       list () {
         this.listdir = !this.listdir
+        let posX = ''
+        let posY = ''
+        let width = this.$parent.screen.width
+        if (this.listdir) {
+          posX = width - 900
+          this.$electron.remote.getCurrentWindow().setSize(500, 800)
+          posY = 0
+          this.$electron.remote.getCurrentWindow().setPosition(posX, posY)
+        } else {
+          posX = width - 800
+          this.$electron.remote.getCurrentWindow().setSize(900, 800)
+          posY = 0
+          this.$electron.remote.getCurrentWindow().setPosition(posX, posY)
+        }
       },
       removeTodo (index) {
         this.todoList.splice(this.todoList.indexOf(index), 1)
