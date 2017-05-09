@@ -59,6 +59,7 @@ img {
       <div class="column is-8">
         <!-- Put Shit Here -->
         <h1 class="title">{{ heading }}</h1>
+        <!-- <h1 class="title">{{ posX }}</h1> -->
         <div class="field has-addons" id="input-container">
           <p class="control">
             <input type="text" id="user-input" v-model="userinput" ref="todoinput" @keyup.enter="addTodo" placeholder="Todo here...">
@@ -129,9 +130,7 @@ img {
     mounted () {
       this.$refs.todoinput.focus()
       this.todoList = JSON.parse(window.localStorage.getItem('todos')) || []
-      this.$electron.remote.getCurrentWindow().on('show', () => {
-        this.$refs.todoinput.focus()
-      })
+      this.focus()
     },
     computed: {
       sortedTodos () {
@@ -147,10 +146,17 @@ img {
         heading: 'Use CommandOrControl+Shift+Alt+A to toggle window',
         userinput: '',
         todoList: [],
-        listdir: false
+        listdir: false,
+        posX: 0,
+        posY: 0
       }
     },
     methods: {
+      focus () {
+        this.$electron.remote.getCurrentWindow().on('show', () => {
+          this.$refs.todoinput.focus()
+        })
+      },
       addTodo () {
         this.todoList.push({
           completed: false,
@@ -160,19 +166,19 @@ img {
       },
       list () {
         this.listdir = !this.listdir
-        let posX = ''
-        let posY = ''
-        let width = this.$parent.screen.width
+        let width = this.$parent.screen.workAreaSize.width
         if (this.listdir) {
-          posX = width - 900
+          this.posX = (width - 500)
           this.$electron.remote.getCurrentWindow().setSize(500, 800)
-          posY = 0
-          this.$electron.remote.getCurrentWindow().setPosition(posX, posY)
+          this.posY = 0
+          this.$electron.remote.getCurrentWindow().setPosition(this.posX, this.posY)
+          this.focus()
         } else {
-          posX = width - 800
+          this.posX = (width - 900)
           this.$electron.remote.getCurrentWindow().setSize(900, 800)
-          posY = 0
-          this.$electron.remote.getCurrentWindow().setPosition(posX, posY)
+          this.posY = 0
+          this.$electron.remote.getCurrentWindow().setPosition(this.posX, this.posY)
+          this.focus()
         }
       },
       removeTodo (index) {
