@@ -1,9 +1,10 @@
+
 <style>
 body {
   padding: 20px;
 }
-body, html {
-  background-color: rgba(0, 0, 0, .2);
+body, html{
+  background-color: rgba(0, 0, 0, 0);
 }
 </style>
 <template>
@@ -18,30 +19,38 @@ body, html {
   export default {
     data () {
       return {
-        position: '',
-        open: true,
-        screen: '',
-        screenw: ''
+        // position: '',
+        open: true
+        // screen: '',
+        // screenw: ''
+        // hotkey: 'CommandOrControl+Shift+Alt+H'
       }
     },
+    watch: {
+    },
+    methods: {
+      // registerHotkey () {
+      //   this.$electron.remote.globalShortcut.register(this.hotkey, () => {
+      //     this.open = !this.open
+      //     if (this.open) {
+      //       this.$electron.remote.getCurrentWindow().restore()
+      //       this.$electron.remote.getCurrentWindow().show()
+      //     } else {
+      //       this.$electron.remote.getCurrentWindow().minimize()
+      //     }
+      //   })
+      // }
+    },
     mounted () {
-      this.$electron.remote.globalShortcut.register('CommandOrControl+Shift+Alt+A', () => {
-        this.open = !this.open
-        if (this.open) {
-          this.$electron.remote.getCurrentWindow().restore()
-          this.$electron.remote.getCurrentWindow().show()
-        } else {
-          this.$electron.remote.getCurrentWindow().minimize()
-        }
-      })
-      this.screen = this.$electron.remote.screen.getPrimaryDisplay()
-      this.position = this.$electron.remote.getCurrentWindow().getPosition()
-      this.$electron.remote.getCurrentWindow().on('move', () => {
-        this.position = this.$electron.remote.getCurrentWindow().getPosition()
-      })
-      let posX = this.screen.workAreaSize.width - 900
-      let posY = 0
-      this.$electron.remote.getCurrentWindow().setPosition(posX, posY)
+      // this.screen = this.$electron.remote.screen.getPrimaryDisplay()
+      // this.position = this.$electron.remote.getCurrentWindow().getPosition()
+      // this.$electron.remote.getCurrentWindow().on('move', () => {
+      //   this.position = this.$electron.remote.getCurrentWindow().getPosition()
+      // })
+      // this.$electron.remote.getCurrentWindow().setSize(900, this.screen.workAreaSize.height)
+      // let posX = this.screen.workAreaSize.width - 900
+      // let posY = 0
+      // this.$electron.remote.getCurrentWindow().setPosition(posX, posY)
     }
   }
 </script>
