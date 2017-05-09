@@ -1,6 +1,6 @@
 {
   "name": "jackel-todo",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A simple electron todo manager",
   "main": "./dist/electron/main.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "ElectronVue",
+    "productName": "Jack's Todo",
     "appId": "org.simulatedgreg.electron-vue",
     "category": "public.app-category.tools",
     "dmg": {
