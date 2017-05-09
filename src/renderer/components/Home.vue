@@ -40,6 +40,10 @@ img {
   top: -12px;
   right: -14px;
 }
+.toggle {
+  display: flex;
+  margin: 0 auto;
+}
 </style>
 
 <template>
@@ -61,14 +65,23 @@ img {
               Go
             </a>
           </p>
+
         </div>
       </div>
       <div class="column is-2">
         <!-- Sidebar ftw -->
+
       </div>
     </div>
     <div class="columns is-multiline" v-if="sortedTodos.length > 0">
-      <div class="column is-3 card-column" v-for="(item, index) in sortedTodos">
+      <div class="column toggle is-12">
+        <p class="control toggle">
+          <a class="button is-warning" @click="list">
+            Toggle Layout
+          </a>
+        </p>
+      </div>
+      <div class="column card-column" :class="{ 'is-3': !listdir, 'is-12': listdir }" v-for="(item, index) in sortedTodos">
         <div class="card">
           <div class="card-content">
             <p class="title card-title">
@@ -126,7 +139,8 @@ img {
       return {
         heading: 'Start of the "TODO" App! (in Electron)',
         userinput: '',
-        todoList: []
+        todoList: [],
+        listdir: false
       }
     },
     methods: {
@@ -136,6 +150,9 @@ img {
           todo: this.userinput
         })
         this.userinput = ''
+      },
+      list () {
+        this.listdir = !this.listdir
       },
       removeTodo (index) {
         this.todoList.splice(this.todoList.indexOf(index), 1)
