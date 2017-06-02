@@ -103,10 +103,12 @@ img {
 </style>
 
 <template>
-  <div class="home">
+<div>
+
     <div class="background-image" :style="{ 'background-image' : 'url(' + imagePath + ')' }">
 
     </div>
+  <div class="home">
     <!-- modals -->
     <settings v-if="settingsModal"></settings>
 
@@ -182,6 +184,7 @@ img {
       <h1 class="title is-lg"> You currently have no TODOS.. </h1>
     </div>
   </div>
+</div>
 </template>
 
 <script>
